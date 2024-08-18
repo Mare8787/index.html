@@ -1,5 +1,4 @@
-index.html
-max-width: 250px;<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,7 +8,7 @@ max-width: 250px;<!DOCTYPE html>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e0f7fa; /* Light Cyan */
+            background-color: #e0f7fa;
             margin: 0;
             padding: 0;
         }
@@ -28,7 +27,7 @@ max-width: 250px;<!DOCTYPE html>
 
         .container {
             padding: 20px;
-            padding-bottom: 80px; /* Added padding to ensure content does not hide behind the fixed opening hours */
+            padding-bottom: 80px;
         }
 
         .intro {
@@ -51,26 +50,31 @@ max-width: 250px;<!DOCTYPE html>
             color: #fff;
             border: none;
             border-radius: 5px;
+            width: 200px; /* Fixed width for all buttons */
         }
 
         .button:hover {
             background-color: #555;
         }
 
-        .button .date {
+        .button .date,
+        .button .amount,
+        .button .label {
             display: block;
+            text-align: center; /* Center text within each block */
+        }
+
+        .button .date {
             font-size: 14px;
             color: yellow;
         }
 
         .button .amount {
-            display: block;
             font-size: 18px;
             color: #fff;
         }
 
         .button .label {
-            display: block;
             font-size: 16px;
             margin-top: 5px;
             color: lightblue;
@@ -88,8 +92,8 @@ max-width: 250px;<!DOCTYPE html>
 
         .images {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
             margin-top: 20px;
         }
 
@@ -106,16 +110,24 @@ max-width: 250px;<!DOCTYPE html>
             max-width: 300px;
         }
 
-        /* Initially hide all date buttons */
-        .date-buttons {
-            display: none;
+        .date-buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: 20px;
         }
 
-        /* Opening Hours Styling */
+        .date-buttons {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            display: none; /* Initially hidden */
+        }
+
         .opening-hours {
             position: fixed;
-            bottom: 10px; /* Space from the bottom of the viewport */
-            right: 10px; /* Space from the right of the viewport */
+            bottom: 10px;
+            right: 10px;
             background-color: #ffffff;
             color: #333;
             padding: 15px;
@@ -123,7 +135,7 @@ max-width: 250px;<!DOCTYPE html>
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             font-size: 14px;
-            z-index: 1000; /* Ensure it stays above other content */
+            z-index: 1000;
         }
 
         .opening-hours h2 {
@@ -140,7 +152,6 @@ max-width: 250px;<!DOCTYPE html>
             margin-bottom: 5px;
         }
 
-        /* Footer Styling */
         footer {
             background-color: #333;
             color: #fff;
@@ -161,7 +172,7 @@ max-width: 250px;<!DOCTYPE html>
         }
 
         .contact-info a {
-            color: #ffeb3b; /* Bright Yellow for links */
+            color: #ffeb3b;
             text-decoration: none;
         }
 
@@ -173,6 +184,23 @@ max-width: 250px;<!DOCTYPE html>
 
         .footer-links a:hover {
             text-decoration: underline;
+        }
+
+        .pax-buttons {
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .pax-button {
+            background-color: #00796b; /* Different color for Pax buttons */
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .pax-button:hover {
+            background-color: #004d40;
         }
     </style>
 </head>
@@ -194,83 +222,82 @@ max-width: 250px;<!DOCTYPE html>
             <img src="https://www.paradisebayresortmalta.com/storage/app/media/Hotel%20Photos/Il-Merill/merill%201%20.jpg" alt="Buffet Restaurant Image">
         </div>
 
-        <h1>Meal Calculator</h1>
-
-        <!-- Main August button -->
-        <div>
+        <div class="date-buttons-container">
             <button class="button" onclick="showDates('augustDates')">
                 <span class="date">BREAKFAST</span>
                 <span class="label">Show More</span>
             </button>
-        </div>
+            <div id="augustDates" class="date-buttons">
+                <button class="button" onclick="toggleAmount(10, '01-08-24')">
+                    <span class="date">Week</span>
+                    <span class="amount">10</span>
+                    <span class="label">BREAKFAST</span>
+                </button>
+                <button class="button" onclick="toggleAmount(6, '02-08-24')">
+                    <span class="date">Kids 6-13</span>
+                    <span class="amount">6</span>
+                    <span class="label">BREAKFAST</span>
+                </button>
+            </div>
 
-        <!-- Hidden date buttons for August -->
-        <div id="augustDates" class="date-buttons">
-            <!-- Repeat buttons for each date in August -->
-            <button class="button" onclick="toggleAmount(10, '01-08-24')">
-                <span class="date">Week</span>
-                <span class="amount">10</span>
-                <span class="label">BREAKFAST</span>
-            </button>
-            <button class="button" onclick="toggleAmount(12.5, '02-08-24')">
-                <span class="date">Weekend</span>
-                <span class="amount">12.5</span>
-                <span class="label">BREAKFAST</span>
-            </button>
-            <!-- Add remaining date buttons for August -->
-        </div>
-
-        <!-- Main September button -->
-        <div>
             <button class="button" onclick="showDates('septemberDates')">
                 <span class="date">LUNCH</span>
                 <span class="label">Show Dates</span>
             </button>
-        </div>
+            <div id="septemberDates" class="date-buttons">
+                <button class="button" onclick="toggleAmount(22.5, '01-09-24')">
+                    <span class="date">Week</span>
+                    <span class="amount">22.5</span>
+                    <span class="label">LUNCH</span>
+                </button>
+                <button class="button" onclick="toggleAmount(13, '02-09-24')">
+                    <span class="date">Kids 6-13</span>
+                    <span class="amount">13</span>
+                    <span class="label">LUNCH</span>
+                </button>
+                <button class="button" onclick="toggleAmount(32.5, '03-09-24')">
+                    <span class="date">Sunday</span>
+                    <span class="amount">32.5</span>
+                    <span class="label">LUNCH</span>
+                </button>
+                <button class="button" onclick="toggleAmount(16.5, '03-09-24-kids')">
+                    <span class="date">Sunday Kids 6-13</span>
+                    <span class="amount">16.5</span>
+                    <span class="label">LUNCH</span>
+                </button>
+            </div>
 
-        <!-- Hidden date buttons for September -->
-        <div id="septemberDates" class="date-buttons">
-            <!-- Repeat buttons for each date in September -->
-            <button class="button" onclick="toggleAmount(22.5, '01-09-24')">
-                <span class="date">Week</span>
-                <span class="amount">22.5</span>
-                <span class="label">LUNCH</span>
-            </button>
-            <button class="button" onclick="toggleAmount(25, '02-09-24')">
-                <span class="date">Weekend</span>
-                <span class="amount">25</span>
-                <span class="label">LUNCH</span>
-            </button>
-            <button class="button" onclick="toggleAmount(32.5, '03-09-24')">
-                <span class="date">Sunday</span>
-                <span class="amount">32.5</span>
-                <span class="label">LUNCH</span>
-            </button>
-            <!-- Add remaining date buttons for September -->
-        </div>
-
-        <!-- Main October button -->
-        <div>
             <button class="button" onclick="showDates('octoberDates')">
                 <span class="date">DINNER</span>
                 <span class="label">Show Dates</span>
             </button>
+            <div id="octoberDates" class="date-buttons">
+                <button class="button" onclick="toggleAmount(22.5, '01-10-24')">
+                    <span class="date">Week</span>
+                    <span class="amount">22.5</span>
+                    <span class="label">DINNER</span>
+                </button>
+                <button class="button" onclick="toggleAmount(13, '02-10-24')">
+                    <span class="date">Kids 6-13</span>
+                    <span class="amount">13</span>
+                    <span class="label">DINNER</span>
+                </button>
+            </div>
         </div>
 
-        <!-- Hidden date buttons for October -->
-        <div id="octoberDates" class="date-buttons">
-            <!-- Repeat buttons for each date in October -->
-            <button class="button" onclick="toggleAmount(22.5, '01-10-24')">
-                <span class="date">Week</span>
-                <span class="amount">22.5</span>
-                <span class="label">DINNER</span>
-            </button>
-            <button class="button" onclick="toggleAmount(25, '02-10-24')">
-                <span class="date">Weekend</span>
-                <span class="amount">25</span>
-                <span class="label">DINNER</span>
-            </button>
-            <!-- Add remaining date buttons for October -->
+        <div style="display: flex;">
+            <!-- Pax Buttons -->
+            <div class="pax-buttons">
+                <button class="button pax-button" onclick="applyPaxMultiplier(2)">
+                    2 Pax
+                </button>
+                <button class="button pax-button" onclick="applyPaxMultiplier(3)">
+                    3 Pax
+                </button>
+                <button class="button pax-button" onclick="applyPaxMultiplier(4)">
+                    4 Pax
+                </button>
+            </div>
         </div>
 
         <div>
@@ -282,14 +309,12 @@ max-width: 250px;<!DOCTYPE html>
             <p id="totalAmount"></p>
         </div>
 
-        <!-- Discount Button -->
         <div>
             <button class="button" onclick="applyDiscount()">
                 <span class="label">20% Discount</span>
             </button>
         </div>
 
-        <!-- Delete Button -->
         <div>
             <button class="button" onclick="clearAll()">
                 <span class="label">Delete All</span>
@@ -297,7 +322,6 @@ max-width: 250px;<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- Opening Hours Section -->
     <div class="opening-hours">
         <h2>Restaurant Opening Hours</h2>
         <p><strong>Breakfast:</strong></p>
@@ -308,13 +332,10 @@ max-width: 250px;<!DOCTYPE html>
         <p>Monday - Sunday: 06:30 pm - 09:30 pm</p>
     </div>
 
-    <!-- Copyright Text -->
-    <div style="text-align:
-   center; margin-top: 20px; font-size: 12px; color: #333;">
+    <div style="text-align:center; margin-top: 20px; font-size: 12px; color: #333;">
         © 2024 By Marko Stojanovic. mare.stojanovic87@gmail.com
     </div>
 
-    <!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <div class="contact-info">
@@ -337,11 +358,14 @@ max-width: 250px;<!DOCTYPE html>
     <script>
         let selectedAmounts = [];
         let totalAmount = 0;
+        let discountApplied = false;
 
         function showDates(monthId) {
             const months = ['augustDates', 'septemberDates', 'octoberDates'];
             months.forEach(id => {
-                document.getElementById(id).style.display = id === monthId ? 'block' : 'none';
+                if (id === monthId) {
+                    document.getElementById(id).style.display = 'block';
+                }
             });
         }
 
@@ -360,18 +384,28 @@ max-width: 250px;<!DOCTYPE html>
             totalAmount = selectedAmounts.reduce((a, b) => a + (b.amount * b.count), 0);
 
             document.getElementById('selectedAmounts').innerText = displayText;
-            document.getElementById('totalAmount').innerText = totalAmount;
+            document.getElementById('totalAmount').innerText = discountApplied ? (totalAmount * 0.8).toFixed(2) : totalAmount.toFixed(2);
+        }
+
+        function applyPaxMultiplier(multiplier) {
+            selectedAmounts = selectedAmounts.map(item => ({
+                ...item,
+                count: item.count * multiplier
+            }));
+            updateDisplay();
         }
 
         function applyDiscount() {
-            const discount = 0.20; // 20% discount
-            const discountedTotal = totalAmount * (1 - discount);
-            document.getElementById('totalAmount').innerText = discountedTotal.toFixed(2);
+            if (!discountApplied) {
+                discountApplied = true;
+                updateDisplay();
+            }
         }
 
         function clearAll() {
             selectedAmounts = [];
             totalAmount = 0;
+            discountApplied = false;
             updateDisplay();
         }
     </script>
