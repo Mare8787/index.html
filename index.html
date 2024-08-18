@@ -1,0 +1,380 @@
+index.html
+max-width: 250px;<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buffet Restaurant and Date Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Light Cyan */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            padding: 20px;
+            padding-bottom: 80px; /* Added padding to ensure content does not hide behind the fixed opening hours */
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .intro p {
+            font-size: 1.2em;
+        }
+
+        .button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        .button .date {
+            display: block;
+            font-size: 14px;
+            color: yellow;
+        }
+
+        .button .amount {
+            display: block;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .button .label {
+            display: block;
+            font-size: 16px;
+            margin-top: 5px;
+            color: lightblue;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #selectedAmounts,
+        #totalAmount {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .images img {
+            max-width: 90%;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-img {
+            display: block;
+            margin: 20px auto;
+            max-width: 300px;
+        }
+
+        /* Initially hide all date buttons */
+        .date-buttons {
+            display: none;
+        }
+
+        /* Opening Hours Styling */
+        .opening-hours {
+            position: fixed;
+            bottom: 10px; /* Space from the bottom of the viewport */
+            right: 10px; /* Space from the right of the viewport */
+            background-color: #ffffff;
+            color: #333;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            z-index: 1000; /* Ensure it stays above other content */
+        }
+
+        .opening-hours h2 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .opening-hours p {
+            margin: 5px 0;
+        }
+
+        .opening-hours p strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+        .contact-info a {
+            color: #ffeb3b; /* Bright Yellow for links */
+            text-decoration: none;
+        }
+
+        .footer-links a {
+            color: #ffeb3b;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Upgrade Calculator</h1>
+    </header>
+
+    <img src="https://cdn.skylinewebcams.com/as/img/hosts/754.jpg" alt="Top Left Image" class="header-img">
+
+    <div class="container">
+        <div class="intro">
+            <h1>Welcome to Our Il-Merill Buffet Restaurant</h1>
+            <p>Enjoy a variety of dishes and calculate your dining expenses!</p>
+        </div>
+
+        <div class="images">
+            <img src="https://www.paradisebayresortmalta.com/storage/app/media/Hotel%20Photos/Il-Merill/merill%201%20.jpg" alt="Buffet Restaurant Image">
+        </div>
+
+        <h1>Meal Calculator</h1>
+
+        <!-- Main August button -->
+        <div>
+            <button class="button" onclick="showDates('augustDates')">
+                <span class="date">BREAKFAST</span>
+                <span class="label">Show More</span>
+            </button>
+        </div>
+
+        <!-- Hidden date buttons for August -->
+        <div id="augustDates" class="date-buttons">
+            <!-- Repeat buttons for each date in August -->
+            <button class="button" onclick="toggleAmount(10, '01-08-24')">
+                <span class="date">Week</span>
+                <span class="amount">10</span>
+                <span class="label">BREAKFAST</span>
+            </button>
+            <button class="button" onclick="toggleAmount(12.5, '02-08-24')">
+                <span class="date">Weekend</span>
+                <span class="amount">12.5</span>
+                <span class="label">BREAKFAST</span>
+            </button>
+            <!-- Add remaining date buttons for August -->
+        </div>
+
+        <!-- Main September button -->
+        <div>
+            <button class="button" onclick="showDates('septemberDates')">
+                <span class="date">LUNCH</span>
+                <span class="label">Show Dates</span>
+            </button>
+        </div>
+
+        <!-- Hidden date buttons for September -->
+        <div id="septemberDates" class="date-buttons">
+            <!-- Repeat buttons for each date in September -->
+            <button class="button" onclick="toggleAmount(22.5, '01-09-24')">
+                <span class="date">Week</span>
+                <span class="amount">22.5</span>
+                <span class="label">LUNCH</span>
+            </button>
+            <button class="button" onclick="toggleAmount(25, '02-09-24')">
+                <span class="date">Weekend</span>
+                <span class="amount">25</span>
+                <span class="label">LUNCH</span>
+            </button>
+            <button class="button" onclick="toggleAmount(32.5, '03-09-24')">
+                <span class="date">Sunday</span>
+                <span class="amount">32.5</span>
+                <span class="label">LUNCH</span>
+            </button>
+            <!-- Add remaining date buttons for September -->
+        </div>
+
+        <!-- Main October button -->
+        <div>
+            <button class="button" onclick="showDates('octoberDates')">
+                <span class="date">DINNER</span>
+                <span class="label">Show Dates</span>
+            </button>
+        </div>
+
+        <!-- Hidden date buttons for October -->
+        <div id="octoberDates" class="date-buttons">
+            <!-- Repeat buttons for each date in October -->
+            <button class="button" onclick="toggleAmount(22.5, '01-10-24')">
+                <span class="date">Week</span>
+                <span class="amount">22.5</span>
+                <span class="label">DINNER</span>
+            </button>
+            <button class="button" onclick="toggleAmount(25, '02-10-24')">
+                <span class="date">Weekend</span>
+                <span class="amount">25</span>
+                <span class="label">DINNER</span>
+            </button>
+            <!-- Add remaining date buttons for October -->
+        </div>
+
+        <div>
+            <h2>Selected Amounts:</h2>
+            <p id="selectedAmounts"></p>
+        </div>
+        <div>
+            <h2>Total Amount:</h2>
+            <p id="totalAmount"></p>
+        </div>
+
+        <!-- Discount Button -->
+        <div>
+            <button class="button" onclick="applyDiscount()">
+                <span class="label">20% Discount</span>
+            </button>
+        </div>
+
+        <!-- Delete Button -->
+        <div>
+            <button class="button" onclick="clearAll()">
+                <span class="label">Delete All</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Opening Hours Section -->
+    <div class="opening-hours">
+        <h2>Restaurant Opening Hours</h2>
+        <p><strong>Breakfast:</strong></p>
+        <p>Monday - Sunday: 07:00 am - 10:00 am</p>
+        <p><strong>Lunch:</strong></p>
+        <p>Monday - Sunday: 12:30 pm - 02:00 pm</p>
+        <p><strong>Dinner:</strong></p>
+        <p>Monday - Sunday: 06:30 pm - 09:30 pm</p>
+    </div>
+
+    <!-- Copyright Text -->
+    <div style="text-align:
+   center; margin-top: 20px; font-size: 12px; color: #333;">
+        © 2024 By Marko Stojanovic. mare.stojanovic87@gmail.com
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info">
+                <p>Paradise Bay Resort</p>
+                <p>Marfa Road, MLH 9068 Cirkewwa</p>
+                <p>22895000, VAT: MT11612537 LICENSE NO: H/0008</p>
+                <p>Email: <a href="mailto:info@paradise-bay.com">info@paradise-bay.com</a></p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Contact Us</a> |
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Groups</a> |
+                <a href="#">Tour Operator</a> |
+                <a href="#">Careers</a> |
+                <a href="#">Expression of Interest</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let selectedAmounts = [];
+        let totalAmount = 0;
+
+        function showDates(monthId) {
+            const months = ['augustDates', 'septemberDates', 'octoberDates'];
+            months.forEach(id => {
+                document.getElementById(id).style.display = id === monthId ? 'block' : 'none';
+            });
+        }
+
+        function toggleAmount(amount, date) {
+            const existingItemIndex = selectedAmounts.findIndex(item => item.amount === amount && item.date === date);
+            if (existingItemIndex === -1) {
+                selectedAmounts.push({ amount: amount, date: date, count: 1 });
+            } else {
+                selectedAmounts[existingItemIndex].count += 1;
+            }
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const displayText = selectedAmounts.map(item => `${item.amount} (${item.count})`).join(" + ");
+            totalAmount = selectedAmounts.reduce((a, b) => a + (b.amount * b.count), 0);
+
+            document.getElementById('selectedAmounts').innerText = displayText;
+            document.getElementById('totalAmount').innerText = totalAmount;
+        }
+
+        function applyDiscount() {
+            const discount = 0.20; // 20% discount
+            const discountedTotal = totalAmount * (1 - discount);
+            document.getElementById('totalAmount').innerText = discountedTotal.toFixed(2);
+        }
+
+        function clearAll() {
+            selectedAmounts = [];
+            totalAmount = 0;
+            updateDisplay();
+        }
+    </script>
+</body>
+
+</html>
